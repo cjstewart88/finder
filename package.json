@@ -1,0 +1,13 @@
+{
+  "name": "finder",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"http-server\" \"tsc --watch\"",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "4.2",
+    "http-server": "0.12.3",
+    "concurrently": "6.0.2"
+  }
+}
