@@ -3,7 +3,7 @@ import { Player } from "./player.js";
 var Game = /** @class */ (function () {
     function Game() {
         this.player = new Player();
-        this.level = new Level().data;
+        this.level = new Level('indigo').data;
     }
     Game.prototype.movePlayer = function (direction) {
         switch (direction) {

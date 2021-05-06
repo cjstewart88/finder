@@ -7,7 +7,7 @@ export class Game {
 
   constructor() {
     this.player = new Player();
-    this.level = new Level().data;
+    this.level = new Level('indigo').data;
   }
 
   public movePlayer(direction) {

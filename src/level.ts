@@ -1,20 +1,19 @@
+import { levels } from './levels/levels.js';
+
 export class Level {
   public data = [];
 
-  constructor() {
-    this.generateLevel();
+  constructor(levelName) {
+    this.generateLevel(levelName);
   }
 
-  private generateLevel() {
-    const levelWidth = this.randomNumBetween(10, 100);
-    const levelHeight = this.randomNumBetween(10, 100);
-
-    for (let i = 0; i < levelHeight; i++) {
-      this.data[i] = [];
-      for (let ii = 0; ii < levelWidth; ii++) {
-        this.data[i].push(this.randomNumBetween(0, 1));
-      }
-    }
+  private generateLevel(levelName) {
+    const rawLevelData = levels[levelName];
+    this.data = [];
+    rawLevelData.split('\n').forEach(element => {
+      if (!element) return;
+      this.data.push(element.split(''));
+    });
   }
 
   private randomNumBetween = (min, max) => { // min and max included

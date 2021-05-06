@@ -1,20 +1,21 @@
+import { levels } from './levels/levels.js';
 var Level = /** @class */ (function () {
-    function Level() {
+    function Level(levelName) {
         this.data = [];
         this.randomNumBetween = function (min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         };
-        this.generateLevel();
+        this.generateLevel(levelName);
     }
-    Level.prototype.generateLevel = function () {
-        var levelWidth = this.randomNumBetween(10, 100);
-        var levelHeight = this.randomNumBetween(10, 100);
-        for (var i = 0; i < levelHeight; i++) {
-            this.data[i] = [];
-            for (var ii = 0; ii < levelWidth; ii++) {
-                this.data[i].push(this.randomNumBetween(0, 1));
-            }
-        }
+    Level.prototype.generateLevel = function (levelName) {
+        var _this = this;
+        var rawLevelData = levels[levelName];
+        this.data = [];
+        rawLevelData.split('\n').forEach(function (element) {
+            if (!element)
+                return;
+            _this.data.push(element.split(''));
+        });
     };
     return Level;
 }());

@@ -16,7 +16,7 @@ var RenderingEngine = /** @class */ (function () {
             for (var ii = 0; ii < this.game.level[i].length; ii++) {
                 var itemX = ((this.game.player.x * 32) - (ii * 32) - (this.window.innerWidth / 2 - 16)) * -1;
                 var itemY = ((this.game.player.y * 32) - (i * 32) - (this.window.innerHeight / 2 - 16)) * -1;
-                this.ctx.fillStyle = this.game.level[i][ii] === 1 ? 'red' : 'black';
+                this.ctx.fillStyle = this.game.level[i][ii] === 'D' ? 'brown' : 'green';
                 this.ctx.fillRect(itemX, itemY, 32, 32);
             }
         }
@@ -25,7 +25,7 @@ var RenderingEngine = /** @class */ (function () {
     };
     // always draw the player in the middle
     RenderingEngine.prototype.drawPlayer = function () {
-        this.ctx.fillStyle = 'green';
+        this.ctx.fillStyle = 'black';
         this.ctx.fillRect(this.window.innerWidth / 2 - 16, this.window.innerHeight / 2 - 16, 32, 32);
     };
     RenderingEngine.prototype.setCanvasSize = function () {
