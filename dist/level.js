@@ -1,22 +1,35 @@
 import { levels } from './levels/levels.js';
-var Level = /** @class */ (function () {
-    function Level(levelName) {
-        this.data = [];
-        this.randomNumBetween = function (min, max) {
+export class Level {
+    constructor(levelName) {
+        this.map = [];
+        this.randomNumBetween = (min, max) => {
             return Math.floor(Math.random() * (max - min + 1) + min);
         };
-        this.generateLevel(levelName);
+        Object.assign(this, levels[levelName]);
+        this.parseMap();
+        this.setStartAndEncOfLevel();
     }
-    Level.prototype.generateLevel = function (levelName) {
-        var _this = this;
-        var rawLevelData = levels[levelName];
-        this.data = [];
-        rawLevelData.split('\n').forEach(function (element) {
+    parseMap() {
+        this.map = [];
+        this.flatMap.split('\n').forEach(element => {
             if (!element)
                 return;
-            _this.data.push(element.split(''));
+            this.map.push(element.trim().split(''));
         });
-    };
-    return Level;
-}());
-export { Level };
+    }
+    setStartAndEncOfLevel() {
+        for (let y = 0; y < this.map.length; y++) {
+            for (let x = 0; x < this.map[y].length; x++) {
+                switch (this.map[y][x]) {
+                    case 'S':
+                        this.startOfLevel = { x, y };
+                        break;
+                    case 'E':
+                        this.endOfLevel = { x, y };
+                        break;
+                }
+            }
+            ;
+        }
+    }
+}

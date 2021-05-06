@@ -1,20 +1,25 @@
-var Player = /** @class */ (function () {
-    function Player() {
+export class Player {
+    constructor() {
         this.x = 0;
         this.y = 0;
     }
-    Player.prototype.moveUp = function () {
+    moveUp() {
         this.y -= 1;
-    };
-    Player.prototype.moveDown = function () {
+    }
+    moveDown() {
         this.y += 1;
-    };
-    Player.prototype.moveLeft = function () {
+    }
+    moveLeft() {
         this.x -= 1;
-    };
-    Player.prototype.moveRight = function () {
+    }
+    moveRight() {
         this.x += 1;
-    };
-    return Player;
-}());
-export { Player };
+    }
+    moveTo(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    get pos() {
+        return { x: this.x, y: this.y };
+    }
+}

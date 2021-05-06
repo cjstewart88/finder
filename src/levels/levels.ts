@@ -1,5 +1,7 @@
 import { Indigo } from './indigo.js';
+import { Test } from './test.js';
 
 export const levels = {
-  indigo: Indigo
+  indigo: Indigo,
+  test: Test
 }

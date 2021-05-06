@@ -10,7 +10,7 @@ export class InputHandler {
 
   private registerKeyboardEvents() {
     this.window.onkeydown = ((e) => {
-      switch (e.key) {
+      switch (e.code) {
         case 'ArrowUp':
           this.game.movePlayer('up');
           break;
@@ -22,6 +22,9 @@ export class InputHandler {
           break;
         case 'ArrowRight':
           this.game.movePlayer('right');
+          break;
+        case 'Space':
+          this.game.interact()
           break;
       }
     });

@@ -1,11 +1,20 @@
 import { Level } from "./level.js";
 import { Player } from "./player.js";
-var Game = /** @class */ (function () {
-    function Game() {
+export class Game {
+    constructor() {
+        this.levelHistory = {};
         this.player = new Player();
-        this.level = new Level('indigo').data;
+        this.setLevel('indigo');
     }
-    Game.prototype.movePlayer = function (direction) {
+    interact() {
+        if (this.atNextLevelDoor) {
+            this.nextLevel();
+        }
+        else if (this.atPreviousLevelDoor) {
+            this.previousLevel();
+        }
+    }
+    movePlayer(direction) {
         switch (direction) {
             case 'up':
                 if (this.player.y - 1 < 0)
@@ -13,7 +22,7 @@ var Game = /** @class */ (function () {
                 this.player.moveUp();
                 break;
             case 'down':
-                if (this.player.y + 1 >= this.level.length)
+                if (this.player.y + 1 >= this.currentLevel.map.length)
                     return;
                 this.player.moveDown();
                 break;
@@ -23,12 +32,37 @@ var Game = /** @class */ (function () {
                 this.player.moveLeft();
                 break;
             case 'right':
-                if (this.player.x + 1 >= this.level[0].length)
+                if (this.player.x + 1 >= this.currentLevel.map[0].length)
                     return;
                 this.player.moveRight();
                 break;
         }
-    };
-    return Game;
-}());
-export { Game };
+    }
+    get atNextLevelDoor() {
+        return JSON.stringify(this.player.pos) === JSON.stringify(this.currentLevel.endOfLevel);
+    }
+    get atPreviousLevelDoor() {
+        return JSON.stringify(this.player.pos) == JSON.stringify(this.currentLevel.startOfLevel);
+    }
+    nextLevel() {
+        if (!this.currentLevel.nextLevel)
+            return;
+        this.setLevel(this.currentLevel.nextLevel);
+        this.player.moveTo(this.currentLevel.startOfLevel.x, this.currentLevel.startOfLevel.y);
+    }
+    previousLevel() {
+        if (!this.currentLevel.previousLevel)
+            return;
+        this.setLevel(this.currentLevel.previousLevel);
+        this.player.moveTo(this.currentLevel.endOfLevel.x, this.currentLevel.endOfLevel.y);
+    }
+    setLevel(levelName) {
+        if (this.levelHistory[levelName]) {
+            this.currentLevel = this.levelHistory[levelName];
+        }
+        else {
+            this.currentLevel = new Level(levelName);
+            this.levelHistory[levelName] = this.currentLevel;
+        }
+    }
+}

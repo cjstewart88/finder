@@ -1,4 +1,6 @@
 import { Indigo } from './indigo.js';
-export var levels = {
-    indigo: Indigo
+import { Test } from './test.js';
+export const levels = {
+    indigo: Indigo,
+    test: Test
 };

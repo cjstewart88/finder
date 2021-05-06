@@ -1,28 +1,28 @@
-var InputHandler = /** @class */ (function () {
-    function InputHandler(game) {
+export class InputHandler {
+    constructor(game) {
         this.window = window;
         this.game = game;
         this.registerKeyboardEvents();
     }
-    InputHandler.prototype.registerKeyboardEvents = function () {
-        var _this = this;
-        this.window.onkeydown = (function (e) {
-            switch (e.key) {
+    registerKeyboardEvents() {
+        this.window.onkeydown = ((e) => {
+            switch (e.code) {
                 case 'ArrowUp':
-                    _this.game.movePlayer('up');
+                    this.game.movePlayer('up');
                     break;
                 case 'ArrowDown':
-                    _this.game.movePlayer('down');
+                    this.game.movePlayer('down');
                     break;
                 case 'ArrowLeft':
-                    _this.game.movePlayer('left');
+                    this.game.movePlayer('left');
                     break;
                 case 'ArrowRight':
-                    _this.game.movePlayer('right');
+                    this.game.movePlayer('right');
+                    break;
+                case 'Space':
+                    this.game.interact();
                     break;
             }
         });
-    };
-    return InputHandler;
-}());
-export { InputHandler };
+    }
+}
