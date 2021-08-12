@@ -22,7 +22,7 @@ export class Game {
                 this.player.moveUp();
                 break;
             case 'down':
-                if (this.player.y + 1 >= this.currentLevel.map.length)
+                if (this.player.y + 1 >= this.currentLevel.map.length - 1)
                     return;
                 this.player.moveDown();
                 break;
